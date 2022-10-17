@@ -16,9 +16,9 @@ public class UserDao {
 
         Connection conn = DriverManager.getConnection(dbHost, dbUser, dbPassword);
         PreparedStatement ps = conn.prepareStatement("INSERT INTO users(id,name,password) VALUES(?,?,?)");
-        ps.setString(1, "1");
-        ps.setString(2,"kim");
-        ps.setString(3,"1123");
+        ps.setString(1, "3");
+        ps.setString(2,"LEE");
+        ps.setString(3,"3213");
 
         int status = ps.executeUpdate();
         System.out.println(status);
