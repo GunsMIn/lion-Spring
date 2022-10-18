@@ -63,7 +63,8 @@ public class UserDao {
 
         return user;
     }
-    //id로 delete 해주는 메소드
+
+    //id로 delete 해주는 메소드 (매개변수 :id)
     public void deleteById(String id) throws ClassNotFoundException, SQLException{
         Connection conn = connectionMaker.makeConnection();
         PreparedStatement ps = conn.prepareStatement("DELETE FROM users WHERE id = ?");
@@ -75,7 +76,7 @@ public class UserDao {
         System.out.println(id+"번의 USER가 삭제 되었습니다");
     }
 
-    //deleteAll 메소드
+    //deleteAll 메소드 (모두 지우는)
     public void deleteAll() throws ClassNotFoundException, SQLException{
         Connection conn = connectionMaker.makeConnection();
         PreparedStatement ps = conn.prepareStatement("DELETE FROM users");
@@ -86,7 +87,7 @@ public class UserDao {
         System.out.println("USER 모두가 삭제 되었습니다");
     }
 
-    //getCount 메소드
+    //getCount 메소드 (user개수)
     public void getCount() throws ClassNotFoundException, SQLException {
         Connection conn = connectionMaker.makeConnection();
         PreparedStatement ps = conn.prepareStatement("SELECT count(*) as cnt FROM users");
