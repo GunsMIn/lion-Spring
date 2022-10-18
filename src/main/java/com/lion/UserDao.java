@@ -8,16 +8,10 @@ import java.util.Map;
 public class UserDao {
 
     public void add() throws SQLException, ClassNotFoundException {
-        Map<String, String> env = System.getenv();
-        String dbHost = env.get("DB_HOST");
-        String dbUser = env.get("DB_USER");
-        String dbPassword = env.get("DB_PASSWORD");
-
-        Class.forName("com.mysql.cj.jdbc.Driver");
-        Connection conn = DriverManager.getConnection(dbHost, dbUser, dbPassword);
+        Connection conn = getConnection();
         PreparedStatement ps = conn.prepareStatement("INSERT INTO users(id,name,password) VALUES(?,?,?)");
-        ps.setString(1, "4");
-        ps.setString(2,"kun");
+        ps.setString(1, "5");
+        ps.setString(2,"woo");
         ps.setString(3,"951110");
 
         int status = ps.executeUpdate();
@@ -29,13 +23,7 @@ public class UserDao {
     }
 
     public User get(String id) throws ClassNotFoundException, SQLException {
-        Map<String, String> env = System.getenv();
-        String dbHost = env.get("DB_HOST");
-        String dbUser = env.get("DB_USER");
-        String dbPassword = env.get("DB_PASSWORD");
-
-        Class.forName("com.mysql.cj.jdbc.Driver");
-        Connection conn = DriverManager.getConnection(dbHost, dbUser, dbPassword);
+        Connection conn = getConnection();
         PreparedStatement ps = conn.prepareStatement("SELECT id,name,password FROM users WHERE id =?");
         ps.setString(1,id); // id는 파라미터로 받은 id
         ResultSet rs = ps.executeQuery();
@@ -68,6 +56,19 @@ public class UserDao {
 
         return user;
     }
+
+    //getconnection메소드를 추출
+    private Connection getConnection() throws ClassNotFoundException, SQLException {
+        Map<String, String> env = System.getenv();
+        String dbHost = env.get("DB_HOST");
+        String dbUser = env.get("DB_USER");
+        String dbPassword = env.get("DB_PASSWORD");
+
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        Connection conn = DriverManager.getConnection(dbHost, dbUser, dbPassword);
+        return conn;
+    }
+
 
 
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
