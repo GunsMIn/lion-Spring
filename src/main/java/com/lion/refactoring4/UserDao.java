@@ -6,6 +6,7 @@ import java.sql.*;
 import java.util.Map;
 
 public class UserDao {
+    //팩토리 패턴의 주 목적은 userDao의 클라이언트인 userDaoTest에서 구현클래스를 결정하게 하는 것
 
     private ConnectionMaker connectionMaker;
 
@@ -61,6 +62,17 @@ public class UserDao {
         conn.close();
 
         return user;
+    }
+    //id로 delete 해주는 메소드
+    public void deleteById(String id) throws ClassNotFoundException, SQLException{
+        Connection conn = connectionMaker.makeConnection();
+        PreparedStatement ps = conn.prepareStatement("DELETE FROM users WHERE id = ?");
+        ps.setString(1,id);
+        int status = ps.executeUpdate();
+        System.out.println(status);
+        ps.close();
+        conn.close();
+        System.out.println(id+"번의 USER가 삭제 되었습니다");
     }
 
     //deleteAll 메소드
