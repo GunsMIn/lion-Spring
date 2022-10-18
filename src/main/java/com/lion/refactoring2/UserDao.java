@@ -1,17 +1,18 @@
-package com.lion.refactoring;
+package com.lion.refactoring2;
 
 import com.lion.domain.User;
 
 import java.sql.*;
 import java.util.Map;
 
-public abstract class UserDao {
+public  class UserDao {
 
     //getconnection메소드를 추출 후 추상메소드로 변경
-    public abstract Connection getConnection() throws ClassNotFoundException, SQLException;
+    private SimpleConnectionMaker simpleConnectionMaker;
 
     public void add(User user) throws SQLException, ClassNotFoundException {
-        Connection conn = getConnection();
+        simpleConnectionMaker = new SimpleConnectionMaker();
+        Connection conn = simpleConnectionMaker.getConnection();
         PreparedStatement ps = conn.prepareStatement("INSERT INTO users(id,name,password) VALUES(?,?,?)");
         ps.setString(1, user.getId());
         ps.setString(2,user.getName());
@@ -26,7 +27,8 @@ public abstract class UserDao {
     }
 
     public User findById(String id) throws ClassNotFoundException, SQLException {
-        Connection conn = getConnection();
+        simpleConnectionMaker = new SimpleConnectionMaker();
+        Connection conn = simpleConnectionMaker.getConnection();
         PreparedStatement ps = conn.prepareStatement("SELECT id,name,password FROM users WHERE id =?");
         ps.setString(1,id); // id는 파라미터로 받은 id
         ResultSet rs = ps.executeQuery();
@@ -65,14 +67,6 @@ public abstract class UserDao {
 
 
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
-        UserDao userDao = new UserDao() {
-            @Override
-            public Connection getConnection() throws ClassNotFoundException, SQLException {
-                return null;
-            }
-        };
-        userDao.add(new User("7","ruru","1234"));
-        System.out.println(userDao.findById("1"));
 
     }
 }
