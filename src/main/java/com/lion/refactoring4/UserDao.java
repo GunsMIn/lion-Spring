@@ -63,6 +63,7 @@ public class UserDao {
         return user;
     }
 
+    //deleteAll 메소드
     public void deleteAll() throws ClassNotFoundException, SQLException{
         Connection conn = connectionMaker.makeConnection();
         PreparedStatement ps = conn.prepareStatement("DELETE FROM users");
@@ -73,13 +74,13 @@ public class UserDao {
         System.out.println("USER 모두가 삭제 되었습니다");
     }
 
-
+    //getCount 메소드
     public void getCount() throws ClassNotFoundException, SQLException {
         Connection conn = connectionMaker.makeConnection();
         PreparedStatement ps = conn.prepareStatement("SELECT count(*) as cnt FROM users");
         ResultSet rs = ps.executeQuery();
         if (rs.next()) {
-            System.out.println("ro수 : "+rs.getInt("cnt"));
+            System.out.println("유저수 : "+rs.getInt("cnt"));
         }
         rs.close();
         ps.close();
