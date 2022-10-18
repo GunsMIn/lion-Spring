@@ -63,8 +63,28 @@ public class UserDao {
         return user;
     }
 
+    public void deleteAll() throws ClassNotFoundException, SQLException{
+        Connection conn = connectionMaker.makeConnection();
+        PreparedStatement ps = conn.prepareStatement("DELETE FROM users");
+        int status = ps.executeUpdate();
+        System.out.println(status);
+        ps.close();
+        conn.close();
+        System.out.println("USER 모두가 삭제 되었습니다");
+    }
 
 
+    public void getCount() throws ClassNotFoundException, SQLException {
+        Connection conn = connectionMaker.makeConnection();
+        PreparedStatement ps = conn.prepareStatement("SELECT count(*) as cnt FROM users");
+        ResultSet rs = ps.executeQuery();
+        if (rs.next()) {
+            System.out.println("ro수 : "+rs.getInt("cnt"));
+        }
+        rs.close();
+        ps.close();
+        conn.close();
+    }
 
 
     public static void main(String[] args) throws SQLException, ClassNotFoundException {

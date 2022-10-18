@@ -7,7 +7,8 @@ import java.sql.SQLException;
 public class UserDaoTest {
     //팩토리사용 클래스
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
-        UserDao dao = new DaoFactory().userDao();
+        // new DaoFactory().userDao().add(new User("15","박땡땡","32323"));
+        new DaoFactory().userDao().getCount();
     }
 
 }
