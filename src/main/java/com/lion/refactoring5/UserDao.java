@@ -104,7 +104,7 @@ public class UserDao {
         rs.close();
         ps.close();
         conn.close();
-        return count;
+        return count;//리턴 int로 수정
     }
 
 
