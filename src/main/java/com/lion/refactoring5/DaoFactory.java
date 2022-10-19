@@ -1,5 +1,6 @@
 package com.lion.refactoring5;
 
+
 public class DaoFactory {
    /* 팩토리 클래스
     팩토리 클래스의 주 목적은 객체의 생성방법을 결정하고 그렇게 만들어진 오브젝트를 돌려주는 것이다.
@@ -10,6 +11,7 @@ public class DaoFactory {
     public ConnectionMaker connectionMaker() {
         return new DConnectionMaker();
     }
+
 
     public UserDao userDao() {
         //어떤 디비를 사용 할 것인지 팩토리 클래스에서 정함
