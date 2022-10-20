@@ -22,24 +22,22 @@ class UserDaoTest {
 
     //deleteALL까지 테스트 !
     @Test
-    @DisplayName("add,get,deleteAll메소드 추가")
+    @DisplayName("add,get 메소드")
     void addAndGet() throws SQLException, ClassNotFoundException {
         UserDao userDao = context.getBean("awsUserDao", UserDao.class);
-        userDao.deleteAll();
-        assertEquals(0,userDao.getCount());
+        User user1 = new User("1", "김수로", "1123");
 
-        String id = "29";
-        userDao.add(new User(id, "EternityHwan", "1234"));
+        userDao.add(user1);
         assertEquals(1,userDao.getCount());
-        User user = userDao.findById(id);
 
-        assertEquals("EternityHwan", user.getName());
-        assertEquals("1234", user.getPassword());
+        User findUser = userDao.findById(user1.getId());
+        assertEquals(user1.getName(), findUser.getName());
     }
 
 
 
     @Test
+    @DisplayName("deleteAll메소드와 Add 테스트")
     public void count() throws SQLException, ClassNotFoundException {
         UserDao userDao = context.getBean("awsUserDao", UserDao.class);
         User user1 = new User("30", "김영기", "1234");
