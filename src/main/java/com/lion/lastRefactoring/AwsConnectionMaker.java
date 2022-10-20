@@ -1,4 +1,4 @@
-package com.lion.lastRefact;
+package com.lion.lastRefactoring;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
