@@ -167,6 +167,49 @@ public class UserDao {
         return count;//리턴 int로 수정
     }
 
+    public int getCount2() throws ClassNotFoundException, SQLException {
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+
+        int count = 0;
+        try {
+            conn = cm.makeConnection();
+            ps = conn.prepareStatement("SELECT count(*) as cnt FROM users");
+            rs = ps.executeQuery();
+            rs.next();
+            count = rs.getInt(1);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+            }
+            if (ps != null) { //ps
+                try {
+                    ps.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        
+        return count;//리턴 int로 수정
+    }
+
 
     public static void main(String[] args) {
         UserDao userDao = new UserDao();
