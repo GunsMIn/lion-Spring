@@ -1,6 +1,7 @@
 package com.lion.lastRefactoring;
 
 import com.lion.domain.User;
+import org.springframework.dao.EmptyResultDataAccessException;
 
 import java.sql.*;
 import java.util.Map;
@@ -52,18 +53,25 @@ public class UserDao {
             pstmt.setString(1, id);
 
             // Query문 실행
+            User user = null;
             ResultSet rs = pstmt.executeQuery();
-            rs.next();
-            User user = new User(rs.getString("id"), rs.getString("name"),
-                    rs.getString("password"));
+            if (rs.next()) {
+                user = new User(rs.getString("id"), rs.getString("name"),
+                        rs.getString("password"));
+            }; //여기가 null일 수 있다}
 
-            rs.close();
-            pstmt.close();
-            c.close();
 
-            return user;
+                rs.close();
+                pstmt.close();
+                c.close();
 
-        } catch (SQLException e) {
+            if (user == null) {
+                throw new EmptyResultDataAccessException(1);
+            }
+
+                return user;
+
+            } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
@@ -102,15 +110,49 @@ public class UserDao {
     }
 
     //deleteAll 메소드 (모두 지우는)
-    public void deleteAll() throws ClassNotFoundException, SQLException{
+    public void deleteAllBefore() throws ClassNotFoundException, SQLException{
         Connection conn = cm.makeConnection();
         PreparedStatement ps = conn.prepareStatement("DELETE FROM users");
         int status = ps.executeUpdate();
         System.out.println(status);
+        //이전에 예외가 터져서 connection이 colse()되지 않으면 엄청 심각한 문제로 번질 수있다.
         ps.close();
         conn.close();
         System.out.println("USER 모두가 삭제 되었습니다");
     }
+
+    public void deleteAll() throws ClassNotFoundException, SQLException{
+        Connection conn = null;
+        PreparedStatement ps = null;
+        //ctrl + alt + t -> 예외처리
+        try {
+            conn = cm.makeConnection();
+            ps = conn.prepareStatement("DELETE FROM users");
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {//이전에 예외가 터져서 connection이 colse()되지 않으면 엄청 심각한 문제로 번질 수있다.
+            //finally는 반드시 실행시켜주는 구역이다.
+            if (ps != null) { //ps
+                try {
+                    ps.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+
+        System.out.println("USER 모두가 삭제 되었습니다");
+    }
+
 
     //getCount 메소드 (user개수)
     public int getCount() throws ClassNotFoundException, SQLException {
