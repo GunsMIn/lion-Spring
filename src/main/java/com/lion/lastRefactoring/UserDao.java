@@ -109,18 +109,8 @@ public class UserDao {
         System.out.println(id+"번의 USER가 삭제 되었습니다");
     }
 
-    //deleteAll 메소드 (모두 지우는)
-    public void deleteAllBefore() throws ClassNotFoundException, SQLException{
-        Connection conn = cm.makeConnection();
-        PreparedStatement ps = conn.prepareStatement("DELETE FROM users");
-        int status = ps.executeUpdate();
-        System.out.println(status);
-        //이전에 예외가 터져서 connection이 colse()되지 않으면 엄청 심각한 문제로 번질 수있다.
-        ps.close();
-        conn.close();
-        System.out.println("USER 모두가 삭제 되었습니다");
-    }
 
+    //deleteAll 메소드 (모두 지우는)
     public void deleteAll() throws ClassNotFoundException, SQLException{
         Connection conn = null;
         PreparedStatement ps = null;
@@ -148,30 +138,15 @@ public class UserDao {
                 }
             }
         }
-
-
         System.out.println("USER 모두가 삭제 되었습니다");
     }
 
 
     //getCount 메소드 (user개수)
     public int getCount() throws ClassNotFoundException, SQLException {
-        Connection conn = cm.makeConnection();
-        PreparedStatement ps = conn.prepareStatement("SELECT count(*) as cnt FROM users");
-        ResultSet rs = ps.executeQuery();
-        rs.next();
-        int count = rs.getInt(1);
-        rs.close();
-        ps.close();
-        conn.close();
-        return count;//리턴 int로 수정
-    }
-
-    public int getCount2() throws ClassNotFoundException, SQLException {
         Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
-
 
         int count = 0;
         try {
@@ -186,8 +161,8 @@ public class UserDao {
             if (rs != null) {
                 try {
                     rs.close();
-                } catch (SQLException throwables) {
-                    throwables.printStackTrace();
+                } catch (SQLException e) {
+                    e.printStackTrace();
                 }
             }
             if (ps != null) { //ps
@@ -205,8 +180,6 @@ public class UserDao {
                 }
             }
         }
-
-        
         return count;//리턴 int로 수정
     }
 
