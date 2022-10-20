@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.util.Map;
 
 public class DConnectionMaker implements ConnectionMaker {
-    //인터페이스를 지정받은 클래스
+    //인터페이스를 지정받은 클래스//
     @Override
     public Connection makeConnection() throws ClassNotFoundException, SQLException {
         Map<String, String> env = System.getenv();

@@ -6,7 +6,7 @@ import java.sql.*;
 import java.util.Map;
 
 public class UserDao {
-    //팩토리 패턴의 주 목적은 userDao의 클라이언트인 userDaoTest에서 구현클래스를 결정하게 하는 것
+    //팩토리 패턴의 주 목적은 userDao의 클라이언트인 userDaoTest에서 구현클래스를 결정하게 하는 것//
 
     private ConnectionMaker connectionMaker;
 
