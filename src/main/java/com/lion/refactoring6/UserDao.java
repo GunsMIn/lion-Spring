@@ -10,10 +10,9 @@ public class UserDao {
 
     private ConnectionMaker cm;
 
-    public UserDao() {
-        this.cm = new AwsConnectionMaker();
-    }
+    public UserDao() {;}
 
+    //생성자 주입
     public UserDao(ConnectionMaker cm) {
         this.cm = cm;
     }
@@ -66,7 +65,7 @@ public class UserDao {
                 c.close();
 
             if (user == null) {
-                throw new EmptyResultDataAccessException(1);
+                throw new EmptyResultDataAccessException("유저가 없습니다",1);
             }
 
                 return user;
@@ -144,6 +143,7 @@ public class UserDao {
 
     //getCount 메소드 (user개수)
     public int getCount() throws ClassNotFoundException, SQLException {
+
         Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;

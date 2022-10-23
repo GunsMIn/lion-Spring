@@ -1,4 +1,4 @@
-package com.lion.lastRefactoring;
+package com.lion.refactoring7;
 
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.context.annotation.Bean;
@@ -10,4 +10,7 @@ public class UserDaoFactory {
     public UserDao awsUserDao() {
         return new UserDao(new AwsConnectionMaker());
     }
+
+
+
 }
