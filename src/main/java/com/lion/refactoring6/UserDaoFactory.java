@@ -1,4 +1,4 @@
-package com.lion.lastRefactoring;
+package com.lion.refactoring6;
 
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.context.annotation.Bean;
