@@ -7,7 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class AddStrategy implements StatementStrategy {
-
+    //AddStrategy 
     private User user;
 
     public AddStrategy(User user) {
