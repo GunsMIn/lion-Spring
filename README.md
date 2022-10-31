@@ -1,5 +1,13 @@
 # ✨Spring_STUDY
 ✔멋쟁이사자 스프링 학습 관련 레파지토리입니다.✔
+
+<img width="900" alt="___________2017-02-22______5 47 08" src="https://user-images.githubusercontent.com/104709432/198947114-5f7b3711-53b9-415c-9f38-f95072dc1cd4.png">
+
+<br>
+<img src="https://img.shields.io/badge/Java-E34F26?style=flat&logo=Java&logoColor=white"/></a>
+<img src="https://img.shields.io/badge/Spring Boot-6DB33F?style=flat&logo=Spring Boot&logoColor=white"/></a>
+<img src="https://img.shields.io/badge/JUnit5-25A162?style=flat&logo=JUnit5&logoColor=white"/></a>
+<img src="https://img.shields.io/badge/MySQL-4479A1?style=flat&logo=MySQL&logoColor=white"/></a>
 <hr>
 <b>📝파일명 : 프로젝트 진행 내용</b><br>
 - refactorting : 관심사 분리를 위한 추상클래스 도입 -> 인터페이스 도입 - > 팩토리 도입  <br>
